@@ -26,6 +26,7 @@ router.get('/:id', (req, res) => {
     }
   })
     .then(dbUserData => {
+      // verify user exists
       if (!dbUserData) {
         res.status(404).json({ message: 'No user found with this id' });
         return;
@@ -39,6 +40,7 @@ router.get('/:id', (req, res) => {
 });
 
 // POST /api/users
+// creates new user object
 router.post('/', (req, res) => {
     // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
     // .create(...) = INSERT INTO users
@@ -57,7 +59,40 @@ router.post('/', (req, res) => {
      });
 });
 
+// we can't use req.params.id and the other .get route to check login info because it relies on the user account's id, which is not known to the user
+// POST is prefered over GET here because Get carries the req param in the URL string, and Post carries it in req.body, thus more secure
+router.post('/login', (req, res) => {// This route will be found at http://localhost:3001/api/users/login
+
+  // expects {email: 'lernantino@gmail.com', password: 'password1234'}
+  // query the User.table using the findOne() method for the email entered by the use and assigned it to req.body.email
+  // findOne( looks for a object with the speceified fields and values)
+  User.findOne({
+    where: {
+      email: req.body.email
+    }
+  }).then(dbUserData => {
+    if (!dbUserData) {// if an user with the requested email is not found
+      res.status(400).json({ message: 'No user with that email address!' });
+      return;
+    }
+    // else, match the password with the hashed password in the database
+    // res.json({ user: dbUserData });
+
+    // Verify user
+    const validPassword = dbUserData.checkPassword(req.body.password);
+    if (!validPassword) {
+      res.status(400).json({ message: 'Incorrect password!' });
+      return;
+    }
+
+    res.json({ user: dbUserData, message: 'You are now logged in!' });
+
+  });
+
+})
+
 // PUT /api/users/1
+// changes user's password
 router.put('/:id', (req, res) => {
   // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
   
@@ -67,6 +102,7 @@ router.put('/:id', (req, res) => {
   //                SET username = "Lernantino", email = "lernantino@gmail.com", password = "newPassword1234"
   //                WHERE id = 1;
   User.update(req.body, {
+    individualHooks: true,// for .beforeUpdate see https://sequelize.org/v5/manual/hooks.html
     where: {
       id: req.params.id
     }
