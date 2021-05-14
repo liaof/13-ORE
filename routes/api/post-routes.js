@@ -1,24 +1,31 @@
 const router = require('express').Router();
-const { Post, User } = require('../../models');
+const sequelize = require('../../config/connection');
+const { Post, User, Vote } = require('../../models');
 
 // get all users
 // get all users
 router.get('/', (req, res) => {
     Post.findAll({
-      attributes: ['id', 'post_url', 'title', 'created_at'],
-      order: [['created_at', 'DESC']],// idsplay by descending order of creation date
-      include: [// join 
-        {
-          model: User,// specify that we want to join to the User table
-          attributes: ['username']// t
-        }
-      ]
+        attributes: [
+            'id',
+            'post_url',
+            'title',
+            'created_at',
+            [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']//use literal sql to get the vote.post_id after specifying a post.id, then store the value in 'vote_count'
+        ],
+        order: [['created_at', 'DESC']],// idsplay by descending order of creation date
+        include: [// join 
+            {
+                model: User,// specify that we want to join to the User table
+                attributes: ['username']// t
+            }
+        ]
     })
-      .then(dbPostData => res.json(dbPostData))// respond with jsonified dbPostData
-      .catch(err => {
+    .then(dbPostData => res.json(dbPostData))// respond with jsonified dbPostData
+    .catch(err => {
         console.log(err);
         res.status(500).json(err);
-      });
+    });
 });
 
 //get 1 post
@@ -27,7 +34,13 @@ router.get('/:id', (req, res) => {
       where: {
         id: req.params.id// get the Post with an id matching req.params.id
       },
-      attributes: ['id', 'post_url', 'title', 'created_at'],
+      attributes: [
+        'id',
+        'post_url',
+        'title',
+        'created_at',
+        [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']//use literal sql to get the vote.post_id after specifying a post.id, then store the value in 'vote_count'
+      ],
       include: [
         {
           model: User,
@@ -60,6 +73,17 @@ router.post('/', (req, res) => {
       .catch(err => {
         console.log(err);
         res.status(500).json(err);
+      });
+});
+
+// PUT /api/posts/upvote
+router.put('/upvote', (req, res) => {
+    // custom static method created in models/Post.js
+    Post.upvote(req.body, { Vote })
+      .then(updatedPostData => res.json(updatedPostData))
+      .catch(err => {
+        console.log(err);
+        res.status(400).json(err);
       });
 });
 
