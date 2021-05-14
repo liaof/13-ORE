@@ -1,15 +1,14 @@
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
 const bcrypt = require('bcrypt');
+const sequelize = require('../config/connection');
 
-
-// create our User model from the Squelize Model class, via 'extends'
+// create our User model
 class User extends Model {
-    // set up method to run on instance data (per user) to check password
-    checkPassword(loginPw) {
-      // this.password = password of request account
-      return bcrypt.compareSync(loginPw, this.password);
-    }
+  // set up method to run on instance data (per user) to check password
+  checkPassword(loginPw) {
+    // this.password = password of request account
+    return bcrypt.compareSync(loginPw, this.password);
+  }
 }
 
 // initialize the model's data and configuration
@@ -31,11 +30,9 @@ User.init(
     },
     // define a username column
     username: {
-      // must be string
       type: DataTypes.STRING,
       allowNull: false
     },
-    // define an email column
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -55,7 +52,6 @@ User.init(
         len: [4]
       }
     }
-    
   },
   {// to use hooks, we must pass in an object labelled 'hooks' to the User.init() function
     hooks: {

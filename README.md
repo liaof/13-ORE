@@ -19,12 +19,13 @@
 }
 
 {
-    "post_url" : "222",
-    "title_url" : "111",
+    "title" : "22m",
+    "post_url" : "111.com",
     "user_id" : 1
 }
 
 {
+    "comment_text":"swag!",
     "user_id" : 1,
     "post_id" : 1
 }
