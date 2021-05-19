@@ -46,3 +46,4 @@
 ### Info and Where to find it
 
 - Hooks for hashing the passwords chapter 13.2.5
+- data coming through Seuqlize needs to be serialized to be used
