@@ -95,7 +95,7 @@ router.put('/:id', (req, res) => {
 
   // pass in req.body instead to only update what's passed through
   User.update(req.body, {
-    individualHooks: true,
+    individualHooks: true,//13.2.5
     where: {
       id: req.params.id
     }

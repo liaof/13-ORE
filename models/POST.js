@@ -2,7 +2,8 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 // create our Post model
 class Post extends Model {
-  static upvote(body, models) {
+  static upvote(body, models) {// we can use Post.upvote() as if it were any other Sqequelize's built in methods
+    // the following code is almost the same as post_routes.js Post.findAll, because it used to be in post_routes.js Post.upvote
     return models.Vote.create({
       user_id: body.user_id,
       post_id: body.post_id
