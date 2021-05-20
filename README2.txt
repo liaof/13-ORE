@@ -41,6 +41,9 @@
 *{{#each}}~html here~{{/each}}*  Handlebar.js HTML looper: HTML within will be
                                  looped for each element of an array to create an unique HTML element for each one
 
+*async/await*   an ES^ feature can be used instead of chaining together .then().catch(). When we use await, we can assign the result of a promise
+                to a variable, example; const response = await fetch();
+
 ## CHAPTER 1
 
 - Followed the MVC paradigm to organize your code into Models, Views, and Controllers.
