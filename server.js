@@ -2,6 +2,8 @@ const path = require('path');// for stylesheet
 const express = require('express');
 const session = require('express-session');// to use express-session and sequelize store
 const exphbs = require('express-handlebars');// for Handlebars.js
+const helpers = require('./utils/helpers');
+const hbs = exphbs.create({ helpers });
 
 
 const app = express();

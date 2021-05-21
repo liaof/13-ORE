@@ -46,6 +46,14 @@
                 to a variable, example; const response = await fetch();
 
 *{{#if}}  a Handlebars.js helper which behaves like a JavaScript if() statement
+
+const fruits = 'apple/banana/orange/pear';
+const x = fruits.split('/')[fruits.split('/').length-2];
+console.log(x);                                                         outputs 'orange'
+
+*res.render('login')*            renders login.handlebars
+
+
 ## CHAPTER 1
 
 - Followed the MVC paradigm to organize your code into Models, Views, and Controllers.
@@ -57,3 +65,9 @@
 - Used Express.js and Sequelize to implement sessions.
 
 - Managed front-end JavaScript logic in an MVC app.
+
+## CHAPTER 3
+
+- Use session data in a template file.
+
+- Write conditionals using Handlebars.js syntax.

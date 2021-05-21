@@ -1,0 +1,14 @@
+<div class="comments">
+  {{#each this}}
+  <section class="comment">
+    <div class="meta">
+      {{user.username}} on {{format_date created_at}}{{! this is the same as calling format_date(created_at). format_date is found in the utils/helpers.js}}
+    </div>
+    <div class="text">
+      {{comment_text}}
+    </div>
+  </section>
+  {{/each}}
+</div>
+
+{{!-- this refers to the parent object, or array that's available in the context of the partial aka the object dictated in the > argument --}}

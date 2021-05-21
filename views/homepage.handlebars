@@ -1,18 +1,13 @@
 <ol class="post-list">
   {{#each posts as |post|}}
   <li>
-    <article class="post">
-      <div class="title">
-        <a href="{{post.post_url}}" target="_blank">{{post.title}}</a>
-        <span>({{post.post_url}})</span>
-      </div>
-      <div class="meta">
-        {{post.vote_count}} point(s) by {{post.user.username}} on
-        {{post.created_at}}
-        |
-        <a href="/post/{{post.id}}">{{post.comments.length}} comment(s)</a>
-      </div>
-    </article>
+    {{> post-info post }}
   </li>
   {{/each}}
 </ol>
+
+{{!-- to use a partial, all we need is the > character, 
+followed by the name of the partial file, and the object we'll pass to the partial
+The 1st param is the file name and the 2nd is the object name 
+*NOTE when we pass an object in this manner, we are not actually passing the object itself but rather it's contents directly
+This means in the file the contents are passed to, we can call the properties directly instead of writing post.property--}}
