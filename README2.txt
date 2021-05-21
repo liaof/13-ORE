@@ -35,7 +35,8 @@
 *res.render()*  The 2nd arguement is an object which containts all of the data we              want to pas to our template
 
 *{{}}*  Used to contain both content(like variables or objects 
-        and attribute values in the Handlebars.js HTML                
+        and attribute values in the Handlebars.js HTML.
+        Like how we use ${} to wrap content when we pass HTML via backticks ``                
 
 
 *{{#each}}~html here~{{/each}}*  Handlebar.js HTML looper: HTML within will be
@@ -44,8 +45,15 @@
 *async/await*   an ES^ feature can be used instead of chaining together .then().catch(). When we use await, we can assign the result of a promise
                 to a variable, example; const response = await fetch();
 
+*{{#if}}  a Handlebars.js helper which behaves like a JavaScript if() statement
 ## CHAPTER 1
 
 - Followed the MVC paradigm to organize your code into Models, Views, and Controllers.
 
 - Used Handlebar.js expressions and {{#each}} helpers to templatize a homepage layout.
+
+## CHAPTER 2
+
+- Used Express.js and Sequelize to implement sessions.
+
+- Managed front-end JavaScript logic in an MVC app.
