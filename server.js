@@ -24,7 +24,7 @@ const sess = {// to use express-session and sequelize store
 
 app.use(session(sess));
 
-const hbs = exphbs.create({});
+
 
 app.engine('handlebars', hbs.engine);// for Handlebars.js
 app.set('view engine', 'handlebars');

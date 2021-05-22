@@ -71,3 +71,9 @@ console.log(x);                                                         outputs 
 - Use session data in a template file.
 
 - Write conditionals using Handlebars.js syntax.
+
+### Overall Project Structure
+
+- /public/javascript .js handles user interactions with served HTML from the .handlebars files
+- /controllers contains route .js used to serve HTML from the .handlebars files. It also passes content to the .handlebars files to display, via .render()
+- /models contains object model .js, which are passed via the routes to be displayed by the html
